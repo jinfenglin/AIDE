@@ -1,0 +1,72 @@
+{
+"algorithm":{
+	"objectDiscoveryTechnique":0,
+	"misclassifiedTechnique":1,
+	"randomAroundMisclassified":15,
+	"exploreExtraSamples":300,
+	"samplesPerIteration":20,
+	"percentAroundGridCenter":1,
+	"exploitError":2,
+	"maxNumberOfSamples":1600,
+	"percentAroundMisclassified":5,
+	"percentAroundBoundary":1,
+	"numberOfGrids":2,
+	"exploitSamples":10,
+	"gridDividingFactor":2,
+	"gridFolder":"explorationLevels",
+	"clusterFolder":"clusters",
+	"adaptiveBoundary":true,
+	"randomAroundBoundaries":15,
+    "seed": -1,
+    "demo": false
+},
+"optimizations":{
+	"focusedExploration":false,
+	"rowc":[200, 600],
+	"colc":[800, 1200],
+    "ra": [200, 300],
+    "field": [200, 300],
+    "fieldID": [100, 200],
+    "decl": [1,2],
+    "psfmag_i": [9, 11],
+	"distanceHint":false,
+	"distance":20,
+	"densityThreshold":4.151123184613932E-6
+},
+"targetQuery":{
+    "targetQuery": "SELECT rowc, colc FROM random10testing WHERE (rowc >= 500 AND rowc <= 742.5 AND  colc >= 900 AND colc <= 1100 )",
+    "original_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 662.5 AND rowc <= 702.5 AND  colc >= 992 AND colc <= 1053 )",
+    "smaller_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 685.5 AND rowc <= 695.5 AND  colc >= 1040 AND colc <= 1055 )",
+    "medium_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 642.5 AND rowc <= 722.5 AND  colc >= 962 AND colc <= 1083 )",
+    "large_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 622.5 AND rowc <= 742.5 AND  colc >= 932 AND colc <= 1113 )",
+	"targetSamplesFileName":"targetSamples.arff"
+},
+"query_UU":{
+	"targetQuery":"SELECT i_start_end_difference, i_days_to_close FROM \"ITEM\" WHERE (i_start_end_difference >= -5 AND i_start_end_difference <= 3 AND  i_days_to_close >= 1 AND i_days_to_close <= 6 )",
+	"attributes":["i_start_end_difference", "i_days_to_close"],
+	"key":"i_id",
+	"tableName":"\"ITEM\"",
+	"targetSamplesFileName":"targetSamples.arff"
+},
+"query_US":{
+	"targetQuery":"SELECT i_num_bids, i_days_to_close FROM \"ITEM\" WHERE (i_num_bids >= 15 AND i_num_bids <= 20 AND  i_days_to_close >= -6 AND i_days_to_close <= -1 )",
+	"attributes":["i_num_bids", "i_days_to_close"],
+	"key":"i_id",
+	"tableName":"\"ITEM\"",
+	"targetSamplesFileName":"targetSamples.arff"
+},
+"classificationAlgorithm":{
+	"trainingFileName":"training.arff",
+	"shadowTrainingFileName":"shadowRraining.arff",
+	"positiveClass":"1"
+},
+"controller": {
+    "histogramSampling": false,
+    "doObject": true,
+	"skipObjectDiscovery": false,
+	"skipMisclassifiedExploitation": false,
+	"skipBoundaryExploitation": false,
+	"stepByStep": false,
+	"showStatusEveryIteration": true
+}
+}

@@ -1,0 +1,22 @@
+{
+"db":{
+		"host":"localhost",
+		"port":5432,
+		"user":"jinfenglin",
+		"pwd":"a1992",
+		"db":"houses"
+},
+"demo":{
+		"scenario":"Scenario 2",
+		"target_query":"select beds, price from real_estate where beds<3 and price<200000"
+},
+"query":{
+        "attributes":["beds", "price"],
+        "tableName":"real_estate",
+        "focusedExploration":false,
+		"lowerBounds":[310, 199],
+	    "upperBounds":[1146, 756],
+	    "visualAttributes":["w", "h"],
+	    "key":"id"
+}
+}
