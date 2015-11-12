@@ -133,7 +133,6 @@ public class LinearExploration implements MiddleWare, Cloneable{
 			System.out.println("Returned..."+exploit.size()+" samples..");
 			if(exploit.size()>0){
 				System.out.println("--------------------------------------Here: "+exploit.get(0).getKey()+" is KEY!");
-				//System.out.println("--------------------------------------Here: "+exploit.get(0).toString()+" toString!");
 			}
 			samples.addAll(exploit);
 		}

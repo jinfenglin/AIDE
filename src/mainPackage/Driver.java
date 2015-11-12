@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import recommandation.Userbased;
 import configuration.DBConnection;
 import configuration.Global;
 
@@ -29,7 +30,11 @@ import configuration.Global;
  */
 public class Driver {
 	static ArrayList<Tuple> allSamples = new ArrayList<Tuple>();
-
+	public static void PrintArray(ArrayList<Tuple> al){
+		for(Tuple tp:al)
+			System.out.print(tp.getKey()+" ");
+		System.out.print("\n");
+	}
 	public static void main(String args[]) throws Exception{
 		//give the configuration file name as input argument
 		String configFileName = args[0];
@@ -54,6 +59,8 @@ public class Driver {
 
 		//linear exploration performs all the three phases of a linear exploration
 		LinearExploration exploration = new LinearExploration();
+		Userbased recommand =new Userbased();
+		ArrayList<Tuple> history = new ArrayList<Tuple>();
 
 		int totalSamples = 0;
 		UserModel model = null;
@@ -70,6 +77,19 @@ public class Driver {
 		}
 		FileWriter fw = new FileWriter(file);
 		BufferedWriter bw = new BufferedWriter(fw);
+		
+		// Kemi
+		
+		/*File file_pres = new File("./record.csv");
+		if (!file_pres.exists()) {
+			file_pres.createNewFile();
+		}
+		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile());
+		BufferedWriter bw_pres = new BufferedWriter(fw_pres);
+		*/
+		//bw_pres.append("-----------New User-----------\n");
+		
+		// kemi - done
 
 		//============================================================== 
 		//while we still have samples to show to the user
@@ -116,7 +136,15 @@ public class Driver {
 			while(samples.size()==0){
 				samples = exploration.explore(model, 0); //0 does not matter if we are not running in the demo mode
 				//TODO add more samples here
-				samples = checkSamples(samples);
+				//samples = checkSamples(samples);
+				history.addAll(samples);
+				//PrintArray(history);
+				//history= checkSamples(history);
+				recommand.UpdateHistory(history);
+				System.out.println("Recommandation Items:");
+				PrintArray(recommand.recommend(3));
+				//samples.addAll(recommand.recommend(3));
+				samples=checkSamples(samples);
 			}
 			//if (samples.size() > 0)
 			//System.out.println("samples: " + samples.get(0) + ", " + samples.get(samples.size()-1));
@@ -152,6 +180,13 @@ public class Driver {
 
 			Global.CMDCONTROLLER.updateModel(model);
 
+			// Kemi
+			/*for (int idx=0; idx<samples.size(); idx++)
+			{
+				bw_pres.append("1,"+samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
+			}*/
+			// Kemi Done
+			
 			if (Global.SHOW_STATUS_EVERY_ITERATION) {
 				EvaluateModel evaluator = Global.CMDCONTROLLER.printStatus();
 				//TODO delete all
@@ -165,6 +200,7 @@ public class Driver {
 			bw.append('\n');				//TODO of course delete the two
 			System.out.println();
 		}
+		bw_pres.close();
 		bw.close();
 	}
 	
