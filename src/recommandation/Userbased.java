@@ -13,9 +13,13 @@ class Entry{
 		this.label=label;
 	}
 }
+class Pair{
+	public String first,second; 
+}
 public class Userbased {
 	private HashMap<String,Tuple>ItemId2Tuple;
 	private HashMap<String,ArrayList<Entry>> UserRecord; 
+	//private HashMap<Pair,Double> SimilarityMap;
 	//past user's information, key is userId, value is items' info,wrapped in Entry class
 	private Label label; //label the samples of current user's record
 	private ArrayList<Entry> currentUserHistory; //current user's labeling history
@@ -47,6 +51,7 @@ public class Userbased {
 			while((line=bf.readLine()) != null){
 				parseLine(line);
 			}
+			bf.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,10 +59,12 @@ public class Userbased {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	public ArrayList<Entry> MakeEntryList(ArrayList<Tuple> currentUser){
 		ArrayList<Integer> tmp= label.getLabels(currentUser);
 		ArrayList<Entry> res=new ArrayList<Entry>();
+		//System.out.println("Items #:"+ItemId2Tuple.size());
 		for(int i=0;i<currentUser.size();i++){
 			String tmpItemId=currentUser.get(i).getKey().toString();
 			String tmpLabel=tmp.get(i).toString();
@@ -65,6 +72,7 @@ public class Userbased {
 			ItemId2Tuple.remove(tmpItemId); //remove items that don't need to be recommanded
 			res.add(newEntry);
 		}
+		//System.out.println("Items #:"+ItemId2Tuple.size());
 		return res;
 		
 	}
@@ -95,10 +103,12 @@ public class Userbased {
 		for(String key:UserRecord.keySet()){
 			ArrayList<Entry> itemList=UserRecord.get(key);
 			double weight=Simiarity(currentUserHistory,itemList);
-			if(itemList.contains(new Entry(itemId,"1"))){
-				score+=weight;
-			}else if(itemList.contains(new Entry(itemId,"-1"))){
-				score-=weight;
+			for(Entry et:itemList){
+				if(et.itemId.equals(itemId))
+					if(et.label.equals("-1"))
+						score-=weight;
+					else
+						score+=weight;
 			}
 		}
 		return score;
@@ -106,15 +116,26 @@ public class Userbased {
 	}
 	public ArrayList<Tuple> recommend(int k){
 		ArrayList<Tuple> tpList=new ArrayList<Tuple>();
-		TreeMap tm=new TreeMap();
+		HashMap<String,Double> tm=new HashMap<String,Double>();
 		for(String itemId:ItemId2Tuple.keySet()){
 			double score=ScoreItem(itemId);
-			tm.put(score, itemId);
+			tm.put(itemId, score);
 		}
-		Iterator it=tm.values().iterator();
+		List<Map.Entry<String, Double>> list= new ArrayList<Map.Entry<String, Double>>(tm.entrySet());
+		Collections.sort( list, new Comparator<Map.Entry<String, Double>>()
+		        {
+		            public int compare( Map.Entry<String, Double> o1, Map.Entry<String, Double> o2 )
+		            {
+		                return (o2.getValue()).compareTo( o1.getValue() );
+		            }
+		        } );
+		
 		int i=0;
-		while(it.hasNext() && i<k){
-			tpList.add(ItemId2Tuple.get(it.next()));
+		for(Map.Entry<String, Double> en:list){
+			if(i>=k)
+				break;
+			tpList.add(ItemId2Tuple.get(en.getKey()));
+			i++;
 		}
 		return tpList;
 	}

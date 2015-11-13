@@ -134,16 +134,15 @@ public class Driver {
 			long t1 = System.currentTimeMillis();
 			ArrayList<Tuple> samples = new ArrayList<Tuple>();
 			while(samples.size()==0){
-				samples = exploration.explore(model, 0); //0 does not matter if we are not running in the demo mode
-				//TODO add more samples here
-				//samples = checkSamples(samples);
+				samples = exploration.explore(model, 0); 
 				history.addAll(samples);
-				//PrintArray(history);
-				//history= checkSamples(history);
+				history= checkSamples(history);
 				recommand.UpdateHistory(history);
 				System.out.println("Recommandation Items:");
-				PrintArray(recommand.recommend(3));
-				//samples.addAll(recommand.recommend(3));
+				ArrayList<Tuple> recommandItem=recommand.recommend(3);
+				PrintArray(recommandItem);
+				samples.addAll(recommandItem);
+				history.addAll(recommandItem);
 				samples=checkSamples(samples);
 			}
 			//if (samples.size() > 0)
