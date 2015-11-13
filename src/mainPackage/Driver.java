@@ -39,6 +39,7 @@ public class Driver {
 		//give the configuration file name as input argument
 		String configFileName = args[0];
 		String configFromFrontEnd = args[1];
+		String recommandOption=args[2];
 		BufferedReader br = new BufferedReader(new FileReader(configFileName));
 		BufferedReader br2 = new BufferedReader(new FileReader(configFromFrontEnd));
 		JSONTokener tokener = new JSONTokener(br);
@@ -135,14 +136,16 @@ public class Driver {
 			ArrayList<Tuple> samples = new ArrayList<Tuple>();
 			while(samples.size()==0){
 				samples = exploration.explore(model, 0); 
-				history.addAll(samples);
-				history= checkSamples(history);
-				recommand.UpdateHistory(history);
-				System.out.println("Recommandation Items:");
-				ArrayList<Tuple> recommandItem=recommand.recommend(3);
-				PrintArray(recommandItem);
-				samples.addAll(recommandItem);
-				history.addAll(recommandItem);
+				if(recommandOption.equals("True")){
+					history.addAll(samples);
+					history= checkSamples(history);
+					recommand.UpdateHistory(history);
+					System.out.println("Recommandation Items:");
+					ArrayList<Tuple> recommandItem=recommand.recommend(3);
+					PrintArray(recommandItem);
+					samples.addAll(recommandItem);
+					history.addAll(recommandItem);
+				}
 				samples=checkSamples(samples);
 			}
 			//if (samples.size() > 0)
