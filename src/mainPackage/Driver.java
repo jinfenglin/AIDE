@@ -55,6 +55,14 @@ public class Driver {
 			e.printStackTrace();
 		}
 
+		//Evaluation output
+		FileWriter fw_log;
+		if(recommandOption.equals("True")){
+			fw_log=new FileWriter("./log/recommand_log.csv");	
+		}else{
+			fw_log=new FileWriter("./log/normal_log.csv");
+		}
+		BufferedWriter bw_log=new BufferedWriter(fw_log);
 		//create the global variables based on the configuration file
 		new Global(config, configFrontEnd);
 
@@ -197,6 +205,7 @@ public class Driver {
 				bw.append(Double.toString(evaluator.recall()));
 				bw.append(", ");
 				bw.append(Double.toString(evaluator.fmeasure()));
+				bw_log.write(totalSamples+","+evaluator.fmeasure()+"\n");
 			}
 			iterNum++;
 			bw.append('\n');				//TODO of course delete the two
@@ -204,6 +213,7 @@ public class Driver {
 		}
 		//bw_pres.close();
 		bw.close();
+		bw_log.close();
 	}
 	
 	private static ArrayList<Tuple> checkSamples(ArrayList<Tuple> samples) {
