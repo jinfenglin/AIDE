@@ -72,8 +72,9 @@ public class Userbased {
 		double score=0.0;
 		for(int i=0;i<currentUser.size();i++){
 			for(int j=0;j<pastUser.size();j++){
-				if(currentUser.get(i).itemId==pastUser.get(j).itemId){
+				if(currentUser.get(i).itemId.equals(pastUser.get(j).itemId)){
 					score+=1;
+					break;
 				}
 			}
 		}
@@ -81,6 +82,7 @@ public class Userbased {
 	}
 	public Userbased(){ //pass samples labeled by user as parameter
 		ItemId2Tuple=new HashMap<String,Tuple>();
+		UserRecord= new HashMap<String,ArrayList<Entry>>();
 		ReadRecord();
 		label=new Label();
 
@@ -95,10 +97,9 @@ public class Userbased {
 			double weight=Simiarity(currentUserHistory,itemList);
 			if(itemList.contains(new Entry(itemId,"1"))){
 				score+=weight;
-			}else if(itemList.contains(new Entry(itemId,"0"))){
+			}else if(itemList.contains(new Entry(itemId,"-1"))){
 				score-=weight;
 			}
-			
 		}
 		return score;
 		

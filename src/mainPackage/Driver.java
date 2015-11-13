@@ -79,8 +79,8 @@ public class Driver {
 		BufferedWriter bw = new BufferedWriter(fw);
 		
 		// Kemi
-		
-		/*File file_pres = new File("./record.csv");
+		/*
+		File file_pres = new File("./record.csv");
 		if (!file_pres.exists()) {
 			file_pres.createNewFile();
 		}
@@ -200,7 +200,7 @@ public class Driver {
 			bw.append('\n');				//TODO of course delete the two
 			System.out.println();
 		}
-		bw_pres.close();
+		//bw_pres.close();
 		bw.close();
 	}
 	
