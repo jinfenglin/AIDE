@@ -93,7 +93,7 @@ public class Driver {
 		if (!file_pres.exists()) {
 			file_pres.createNewFile();
 		}
-		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile());
+		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile(),true);
 		BufferedWriter bw_pres = new BufferedWriter(fw_pres);
 		*/
 		//bw_pres.append("-----------New User-----------\n");
@@ -193,7 +193,7 @@ public class Driver {
 			// Kemi
 			/*for (int idx=0; idx<samples.size(); idx++)
 			{
-				bw_pres.append("1,"+samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
+				bw_pres.append("4,"+samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
 			}*/
 			// Kemi Done
 			

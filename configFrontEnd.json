@@ -4,15 +4,15 @@
 		"port":5432,
 		"user":"jinfenglin",
 		"pwd":"a1992",
-		"db":"houses"
+		"db":"stardb"
 },
 "demo":{
 		"scenario":"Scenario 2",
-		"target_query":"select beds, price from real_estate where beds<3 and price<200000"
+		"target_query":"select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053);"
 },
 "query":{
-        "attributes":["beds", "price"],
-        "tableName":"real_estate",
+        "attributes":["rowc", "colc"],
+        "tableName":"sdss_sampledb_point4_percent",
         "focusedExploration":false,
 		"lowerBounds":[310, 199],
 	    "upperBounds":[1146, 756],
