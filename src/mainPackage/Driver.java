@@ -16,7 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import recommandation.Recommander;
 import recommandation.Userbased;
+import recommandation.Hybird;
 import configuration.DBConnection;
 import configuration.Global;
 
@@ -57,10 +59,10 @@ public class Driver {
 
 		//Evaluation output
 		FileWriter fw_log;
-		if(recommandOption.equals("True")){
-			fw_log=new FileWriter("./log/recommand_log.csv");	
+		if(recommandOption.equals("False")){
+			fw_log=new FileWriter("./log/normal_log.csv");	
 		}else{
-			fw_log=new FileWriter("./log/normal_log.csv");
+			fw_log=new FileWriter("./log/recommand_log.csv");
 		}
 		BufferedWriter bw_log=new BufferedWriter(fw_log);
 		//create the global variables based on the configuration file
@@ -68,7 +70,12 @@ public class Driver {
 
 		//linear exploration performs all the three phases of a linear exploration
 		LinearExploration exploration = new LinearExploration();
-		Userbased recommand =new Userbased();
+		Recommander recommand = null;
+		if(recommandOption.equals("Userbased")){
+			recommand=new Userbased();
+		}else if(recommandOption.equals("Hybird")){
+			recommand= new Hybird();
+		}
 		ArrayList<Tuple> history = new ArrayList<Tuple>();
 
 		int totalSamples = 0;
@@ -144,7 +151,7 @@ public class Driver {
 			ArrayList<Tuple> samples = new ArrayList<Tuple>();
 			while(samples.size()==0){
 				samples = exploration.explore(model, 0); 
-				if(recommandOption.equals("True")){
+				if(recommandOption.equals("Userbased")){
 					history.addAll(samples);
 					history= checkSamples(history);
 					recommand.UpdateHistory(history);
@@ -153,15 +160,15 @@ public class Driver {
 					PrintArray(recommandItem);
 					samples.addAll(recommandItem);
 					history.addAll(recommandItem);
+				}else if(recommandOption.equals("Hybird")){
+					
 				}
 				samples=checkSamples(samples);
 			}
 			//if (samples.size() > 0)
 			//System.out.println("samples: " + samples.get(0) + ", " + samples.get(samples.size()-1));
 			long delta = System.currentTimeMillis()-t1;
-
 			totalTime += delta;
-
 			System.out.println("Time spent is " + totalTime + " milliseconds");
 			bw.append(Long.toString(totalTime));
 			bw.append(", ");
