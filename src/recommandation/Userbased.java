@@ -18,7 +18,7 @@ public class Userbased extends Recommander{
 				}
 			}
 		}
-		return Math.sqrt(score);
+		return score;
 	}
 	double ScoreItem(String itemId){
 		double score=0.0;

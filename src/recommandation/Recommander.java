@@ -108,7 +108,7 @@ public abstract class Recommander {
 		
 		int i=0;
 		for(Map.Entry<String, Double> en:list){
-			if(i>=k)
+			if(i>=k || en.getValue()<0)
 				break;
 			//tpList.add(ItemId2Tuple.get(en.getKey()));
 			tpList.add(getTuple(en.getKey()));

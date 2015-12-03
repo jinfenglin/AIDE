@@ -37,6 +37,13 @@ public class Driver {
 			System.out.print(tp.getKey()+" ");
 		System.out.print("\n");
 	}
+	public static boolean PositiveLabelInArray(ArrayList<Integer> list){
+		for(int label:list){
+			if(label==1)
+				return true;
+		}
+		return false;
+	}
 	public static void main(String args[]) throws Exception{
 		//give the configuration file name as input argument
 		String configFileName = args[0];
@@ -109,6 +116,7 @@ public class Driver {
 
 		//============================================================== 
 		//while we still have samples to show to the user
+		boolean RecommandFlag=false;
 		while(totalSamples<Global.MAX_SAMPLES){
 			//use cmd controller to control the progress
 			if (Global.STEP_BY_STEP) {
@@ -151,7 +159,7 @@ public class Driver {
 			ArrayList<Tuple> samples = new ArrayList<Tuple>();
 			while(samples.size()==0){
 				samples = exploration.explore(model, 0); 
-				if(recommandOption.equals("Userbased")){
+				if(!recommandOption.equals("False")  && RecommandFlag == true){
 					history.addAll(samples);
 					history= checkSamples(history);
 					recommand.UpdateHistory(history);
@@ -160,8 +168,6 @@ public class Driver {
 					PrintArray(recommandItem);
 					samples.addAll(recommandItem);
 					history.addAll(recommandItem);
-				}else if(recommandOption.equals("Hybird")){
-					
 				}
 				samples=checkSamples(samples);
 			}
@@ -181,7 +187,8 @@ public class Driver {
 			//get labels(relevant/non-relevant) from each of the samples you retrieved
 			//System.out.println("Going to get labels");
 			ArrayList<Integer> labels = lb.getLabels(samples);
-
+			if(RecommandFlag==false)
+				RecommandFlag=PositiveLabelInArray(labels);
 			//build the decision tree based on the labeled samples you have and get back the user model
 			//System.out.println("Going to classify and build the tree");
 			model = exploration.classify(samples, labels);
@@ -212,7 +219,8 @@ public class Driver {
 				bw.append(Double.toString(evaluator.recall()));
 				bw.append(", ");
 				bw.append(Double.toString(evaluator.fmeasure()));
-				bw_log.write(totalSamples+","+evaluator.fmeasure()+"\n");
+				if(RecommandFlag)
+					bw_log.write(totalSamples+","+evaluator.fmeasure()+"\n");
 			}
 			iterNum++;
 			bw.append('\n');				//TODO of course delete the two
