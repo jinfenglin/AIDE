@@ -74,7 +74,12 @@ public class Driver {
 		BufferedWriter bw_log=new BufferedWriter(fw_log);
 		//create the global variables based on the configuration file
 		new Global(config, configFrontEnd);
-
+		
+		// Kemi
+		for (int the_idx=0; the_idx<Global.QUERYNUMBER; the_idx++) { 
+			Global.execute(config, configFrontEnd, the_idx);
+		
+		// Kemi
 		//linear exploration performs all the three phases of a linear exploration
 		LinearExploration exploration = new LinearExploration();
 		Recommander recommand = null;
@@ -102,15 +107,15 @@ public class Driver {
 		BufferedWriter bw = new BufferedWriter(fw);
 		
 		// Kemi
-		/*
+		
 		File file_pres = new File("./record.csv");
 		if (!file_pres.exists()) {
 			file_pres.createNewFile();
 		}
 		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile(),true);
 		BufferedWriter bw_pres = new BufferedWriter(fw_pres);
-		*/
-		//bw_pres.append("-----------New User-----------\n");
+		
+		bw_pres.append("-----------New User-----------\n");
 		
 		// kemi - done
 
@@ -205,10 +210,10 @@ public class Driver {
 			Global.CMDCONTROLLER.updateModel(model);
 
 			// Kemi
-			/*for (int idx=0; idx<samples.size(); idx++)
+			for (int idx=0; idx<samples.size(); idx++)
 			{
 				bw_pres.append("4,"+samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
-			}*/
+			}
 			// Kemi Done
 			
 			if (Global.SHOW_STATUS_EVERY_ITERATION) {
@@ -226,9 +231,10 @@ public class Driver {
 			bw.append('\n');				//TODO of course delete the two
 			System.out.println();
 		}
-		//bw_pres.close();
+		bw_pres.close();
 		bw.close();
 		bw_log.close();
+		} // kemi
 	}
 	
 	private static ArrayList<Tuple> checkSamples(ArrayList<Tuple> samples) {

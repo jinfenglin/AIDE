@@ -82,18 +82,20 @@ public class Global {
 	private static AttriFocsDomain[] m_domains = null;    // by KEMI, to store the focus domains read from config file.
 
 	public static long SEED;   // zhan: seed used in object discovery, when randomly get samples from file.
-
+	
+	public static int QUERYNUMBER = -1; // KEMI
+	public static JSONObject QUERIES [] = null; // kemi
 	/**
 	 * @param config a JSONObject that represents the JSON file that contains
 	 *               all the info for algorithm/query etc.
 	 * @throws JSONException
 	 */
-	public Global(JSONObject config, JSONObject configFrontEnd) throws JSONException {
+	public static void execute(JSONObject config, JSONObject configFrontEnd, int the_idx) throws JSONException {
 
 		//front end config file
-		JSONObject queryFE = configFrontEnd.getJSONObject("query");
+		JSONObject queryFE = QUERIES[the_idx]; //configFrontEnd.getJSONObject("query");
 		JSONObject demo = configFrontEnd.getJSONObject("demo"); //contains scenario and target query
-
+	
 		String sc = demo.getString("scenario");
 		if(sc.contains("1")){
 			SCENARIO = 1;
@@ -120,6 +122,11 @@ public class Global {
 			TARGET_QUERY = targetQuery;
 			SCENARIO = 4;
 		}
+		
+		/* kemi */
+		targetQuery = QUERIES[the_idx].getString("targetQuery");
+		TARGET_QUERY = targetQuery;
+		/* kemi */
 
 		OBJECT_KEY = queryFE.getString("key");
 
@@ -252,10 +259,21 @@ public class Global {
 		createFolder(CACHED_FILE_FOLDER, true);
 
 		//TABLE_ATTR_STAT = new TableAttrStat();
-		TARGET_QUERY = targetQuery;
+		TARGET_QUERY = targetQuery; // deleted by kemi
+	}
+	
+	public Global(JSONObject config, JSONObject configFrontEnd) throws JSONException {
+		JSONObject algorithm = config.getJSONObject("algorithm");
+		QUERYNUMBER = algorithm.getInt("queryNumber");
+		
+		QUERIES = new JSONObject [QUERYNUMBER];
+		String standard_query_pre = new String("query_");
+		for (int idx=0; idx<QUERYNUMBER; idx++) {
+			QUERIES[idx] = config.getJSONObject(standard_query_pre + idx);
+		}
 	}
 
-	private void createFolder(String folderName, boolean f) {		
+	private static void createFolder(String folderName, boolean f) {		
 		if(f)
 			folderName = ""+GRID_FOLDER+"/"+CACHED_FILE_FOLDER; 
 
@@ -273,7 +291,7 @@ public class Global {
 	 * This method loads the entire data space into an arff file
 	 * in order to be used by the clustering exploration technique
 	 */
-	private void loadDataSpace() {  
+	private static void loadDataSpace() {  
 		StringBuilder fileName = new StringBuilder();
 		for(int i=0; i<attributes.size(); i++){
 			fileName.append(attributes.get(i).getName());
@@ -326,7 +344,7 @@ public class Global {
 	 * @param o JSONObject to read info about the ranges of each attribute.
 	 * @throws JSONException
 	 */
-	private void trimDomains(JSONObject o) throws JSONException {
+	private static void trimDomains(JSONObject o) throws JSONException {
 		JSONArray array = o.getJSONArray("lowerBounds");
 		JSONArray array1 = o.getJSONArray("upperBounds");
 
@@ -411,7 +429,7 @@ public class Global {
 	 * @param attr the name of the attribute as a String
 	 * @return an arraylist that contains the domain of the attribute. Each value will be a String
 	 */
-	private ArrayList<Object> getDomain(String attr) {
+	private static ArrayList<Object> getDomain(String attr) {
 		ArrayList<Object> attributeDomain = new ArrayList<Object>();
 		OutputFile attrFile = new OutputFile(attr + ".txt");
 		if (!attrFile.exists()) { //if the attribute file doesn't exist then send a query to the database
