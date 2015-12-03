@@ -1,11 +1,10 @@
-/.DS_Store
-/Server/
-/User/
-/boundaryExploitation/
-/configuration/
 /mainPackage/
+/configuration/
 /metrics/
-/misclassifiedExploitation/
 /recommandation/
+/User/
+/Server/
+/boundaryExploitation/
+/misclassifiedExploitation/
 /relevantObjectDiscovery/
 /visualization/

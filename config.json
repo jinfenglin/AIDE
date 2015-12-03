@@ -19,7 +19,7 @@
 	"randomAroundBoundaries":25,
     "seed": -1,
     "demo": false,
-    "queryNumber": 3
+    "queryNumber": 4
 },
 "optimizations":{
 	"focusedExploration":false,
@@ -35,7 +35,7 @@
 	"densityThreshold":4.151123184613932E-6
 },
 "targetQuery":{
-    "targetQuery": "SELECT rowc, colc FROM random10testing WHERE (rowc >= 500 AND rowc <= 742.5 AND  colc >= 900 AND colc <= 1100 )",
+    "targetQuery": "SELECT rowc, colc FROM random10testing WHERE (rowc >= 0 AND rowc <= 0 AND  colc >= 0 AND colc <= 0 )",
     "original_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 662.5 AND rowc <= 702.5 AND  colc >= 992 AND colc <= 1053 )",
     "smaller_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 685.5 AND rowc <= 695.5 AND  colc >= 1040 AND colc <= 1055 )",
     "medium_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 642.5 AND rowc <= 722.5 AND  colc >= 962 AND colc <= 1083 )",
@@ -43,27 +43,26 @@
 	"targetSamplesFileName":"targetSamples.arff"
 },
 "query_0":{
-    "targetQuery": "SELECT rowc, colc FROM random10testing WHERE (rowc >= 500 AND rowc <= 742.5 AND  colc >= 900 AND colc <= 1100 )",
-    "original_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 662.5 AND rowc <= 702.5 AND  colc >= 992 AND colc <= 1053 )",
-    "smaller_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 685.5 AND rowc <= 695.5 AND  colc >= 1040 AND colc <= 1055 )",
-    "medium_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 642.5 AND rowc <= 722.5 AND  colc >= 962 AND colc <= 1083 )",
-    "large_targetQuery": "SELECT rowc, colc FROM testing WHERE (rowc >= 622.5 AND rowc <= 742.5 AND  colc >= 932 AND colc <= 1113 )",
-	"targetSamplesFileName":"targetSamples.arff"
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 642.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053)",
+    "targetSamplesFileName":"targetSamples.arff"
 },
+
 "query_1":{
-	"targetQuery":"SELECT i_start_end_difference, i_days_to_close FROM \"ITEM\" WHERE (i_start_end_difference >= -5 AND i_start_end_difference <= 3 AND  i_days_to_close >= 1 AND i_days_to_close <= 6 )",
-	"attributes":["i_start_end_difference", "i_days_to_close"],
-	"key":"i_id",
-	"tableName":"\"ITEM\"",
-	"targetSamplesFileName":"targetSamples.arff"
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 722.5 and colc >= 992 and colc <= 1053)",
+   	"targetSamplesFileName":"targetSamples.arff"
 },
 "query_2":{
-	"targetQuery":"SELECT i_num_bids, i_days_to_close FROM \"ITEM\" WHERE (i_num_bids >= 15 AND i_num_bids <= 20 AND  i_days_to_close >= -6 AND i_days_to_close <= -1 )",
-	"attributes":["i_num_bids", "i_days_to_close"],
-	"key":"i_id",
-	"tableName":"\"ITEM\"",
-	"targetSamplesFileName":"targetSamples.arff"
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 962 and colc <= 1053)",
+   	"targetSamplesFileName":"targetSamples.arff"
 },
+
+"query_3":{
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1093)",
+   	"targetSamplesFileName":"targetSamples.arff"
+},
+
+
+
 "classificationAlgorithm":{
 	"trainingFileName":"training.arff",
 	"shadowTrainingFileName":"shadowRraining.arff",

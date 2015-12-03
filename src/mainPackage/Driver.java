@@ -46,16 +46,20 @@ public class Driver {
 	}
 	public static void main(String args[]) throws Exception{
 		//give the configuration file name as input argument
-		String configFileName = args[0];
-		String configFromFrontEnd = args[1];
-		String recommandOption=args[2];
+		String configFileName = "config.json";//args[0];
+		String configFromFrontEnd = "configFrontEnd.json";//args[1];
+		String recommandOption="False";//args[2];
+		System.out.println(configFileName);
+		System.out.println(configFromFrontEnd);
+		System.out.println(recommandOption);
 		BufferedReader br = new BufferedReader(new FileReader(configFileName));
 		BufferedReader br2 = new BufferedReader(new FileReader(configFromFrontEnd));
 		JSONTokener tokener = new JSONTokener(br);
 		JSONTokener tokener2 = new JSONTokener(br2);
 		JSONObject config = new JSONObject(tokener);
 		JSONObject configFrontEnd = new JSONObject(tokener2);
-
+		boolean is_trainning = false;
+		
 		//connect to the database
 		DBConnection cm = new DBConnection();
 		try {
@@ -73,12 +77,33 @@ public class Driver {
 		}
 		BufferedWriter bw_log=new BufferedWriter(fw_log);
 		//create the global variables based on the configuration file
-		new Global(config, configFrontEnd);
+		new Global(config, configFrontEnd, is_trainning);
+		
+		File file = new File("./psfmag_i.csv");
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		FileWriter fw = new FileWriter(file);
+		BufferedWriter bw = new BufferedWriter(fw);
 		
 		// Kemi
-		for (int the_idx=0; the_idx<Global.QUERYNUMBER; the_idx++) { 
-			Global.execute(config, configFrontEnd, the_idx);
 		
+		File file_pres = new File("./record.csv");
+		if (!file_pres.exists()) {
+			file_pres.createNewFile();
+		}
+		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile(),true);
+		BufferedWriter bw_pres = new BufferedWriter(fw_pres);
+		
+		
+		
+		// kemi - done
+		// Kemi
+		for (int the_idx=0; the_idx<Global.QUERYNUMBER; the_idx++) {
+			if (is_trainning) {
+				Global.execute(config, configFrontEnd, the_idx);
+				bw_pres.append("-----------New User-----------\n");
+			}
 		// Kemi
 		//linear exploration performs all the three phases of a linear exploration
 		LinearExploration exploration = new LinearExploration();
@@ -99,25 +124,7 @@ public class Driver {
 		long totalTime = 0;
 
 		// TODO simply delete them after use. ==========================
-		File file = new File("./psfmag_i.csv");
-		if (!file.exists()) {
-			file.createNewFile();
-		}
-		FileWriter fw = new FileWriter(file);
-		BufferedWriter bw = new BufferedWriter(fw);
-		
-		// Kemi
-		
-		File file_pres = new File("./record.csv");
-		if (!file_pres.exists()) {
-			file_pres.createNewFile();
-		}
-		FileWriter fw_pres = new FileWriter(file_pres.getAbsoluteFile(),true);
-		BufferedWriter bw_pres = new BufferedWriter(fw_pres);
-		
-		bw_pres.append("-----------New User-----------\n");
-		
-		// kemi - done
+
 
 		//============================================================== 
 		//while we still have samples to show to the user
@@ -210,9 +217,11 @@ public class Driver {
 			Global.CMDCONTROLLER.updateModel(model);
 
 			// Kemi
-			for (int idx=0; idx<samples.size(); idx++)
-			{
-				bw_pres.append("4,"+samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
+			if (is_trainning) {
+				for (int idx=0; idx<samples.size(); idx++)
+				{
+					bw_pres.append(Integer.toString(the_idx) + "," + samples.get(idx).getKey() + "," +labels.get(idx)+","+samples.get(idx).toString()+ "\n");
+				}
 			}
 			// Kemi Done
 			
@@ -231,10 +240,12 @@ public class Driver {
 			bw.append('\n');				//TODO of course delete the two
 			System.out.println();
 		}
+		
+		} // kemi
+		
 		bw_pres.close();
 		bw.close();
 		bw_log.close();
-		} // kemi
 	}
 	
 	private static ArrayList<Tuple> checkSamples(ArrayList<Tuple> samples) {
