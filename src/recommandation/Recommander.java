@@ -16,7 +16,6 @@ import mainPackage.Label;
 import mainPackage.Tuple;
 
 public abstract class Recommander {
-	
 	Recommander(){
 		ItemId2Tuple=new HashMap<String,Tuple>();
 		UserRecord= new HashMap<String,ArrayList<RecEntry>>();
@@ -108,7 +107,7 @@ public abstract class Recommander {
 		
 		int i=0;
 		for(Map.Entry<String, Double> en:list){
-			if(i>=k || en.getValue()<0)
+			if(i>=k)
 				break;
 			//tpList.add(ItemId2Tuple.get(en.getKey()));
 			tpList.add(getTuple(en.getKey()));

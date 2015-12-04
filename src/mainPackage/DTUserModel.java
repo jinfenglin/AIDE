@@ -19,9 +19,11 @@ import weka.core.Instances;
 
 
 
+
 //import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +41,7 @@ import configuration.Global;
 
 
 
-public class DTUserModel implements UserModel{
+public class DTUserModel implements UserModel,Serializable{
 
 	Instances trainingSamples ;
 
