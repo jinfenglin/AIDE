@@ -8,7 +8,7 @@
 },
 "demo":{
 		"scenario":"Scenario 2",
-		"target_query":"select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053);"
+		"target_query":"select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053) or (rowc >= 215 and rowc <= 432 and colc >= 581 and colc <= 612);"
 },
 "query":{
         "attributes":["rowc", "colc"],

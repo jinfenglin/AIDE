@@ -88,7 +88,7 @@ public class Hybird extends Recommander{
 			DTUserModel model= pastModels.get(UserId);
 			ArrayList<RecEntry> itemList=BuildItemListWithPastModel(UserId,model);
 			double weight=Similarity(currentUserHistory,itemList)+ItemUserAffinity(itemId);
-			System.out.println("weight:"+weight);
+			//System.out.println("weight:"+weight);
 			Tuple tuple= getTuple(itemId);
 			String past_label=classify(tuple,model);
 			if(past_label.equals("1")){

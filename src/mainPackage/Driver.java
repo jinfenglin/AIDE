@@ -53,9 +53,9 @@ public class Driver {
 	}
 	public static void main(String args[]) throws Exception{
 		//give the configuration file name as input argument
-		String configFileName = "config.json";//args[0];
-		String configFromFrontEnd = "configFrontEnd.json";//args[1];
-		String recommandOption="Hybird";//args[2];
+		String configFileName = args[0];
+		String configFromFrontEnd = args[1];
+		String recommandOption= args[2];
 		System.out.println(configFileName);
 		System.out.println(configFromFrontEnd);
 		System.out.println(recommandOption);
@@ -66,6 +66,11 @@ public class Driver {
 		JSONObject config = new JSONObject(tokener);
 		JSONObject configFrontEnd = new JSONObject(tokener2);
 		boolean is_trainning = false;
+		if(args[3].equals("train")){
+			is_trainning=true;
+			System.out.println("training model...");
+		}
+		
 		
 		//connect to the database
 		DBConnection cm = new DBConnection();
@@ -94,6 +99,9 @@ public class Driver {
 		BufferedWriter bw = new BufferedWriter(fw);
 		// Kemi
 		File file_pres = new File("./record.csv");
+		if(is_trainning){
+			file_pres.delete();
+		}
 		if (!file_pres.exists()) {
 			file_pres.createNewFile();
 		}
