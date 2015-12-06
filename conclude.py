@@ -24,7 +24,7 @@ def average(array,count):
     return [float(element)/count for element in array]
 
 if __name__=="__main__":
-    case="./results/case13/"
+    case="./results_time/case13/"
     dirs=os.listdir(case)
     hybird_sum=[0]*10
     h_count=0
@@ -38,7 +38,7 @@ if __name__=="__main__":
             continue
         files=os.listdir(case+dir)
         for file in files:
-            if '.csv' not in file:
+            if  not file.endswith('.csv'):
                 continue
             with open(case+dir+'/'+file) as fin:
                 print dir,file

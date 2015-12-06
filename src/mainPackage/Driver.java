@@ -82,12 +82,16 @@ public class Driver {
 
 		//Evaluation output
 		FileWriter fw_log;
+		FileWriter fw_time_log;
 		if(recommandOption.equals("False")){
 			fw_log=new FileWriter("./log/normal_log.csv");	
+			fw_time_log= new FileWriter("./log_time/normal_log.csv");
 		}else{
 			fw_log=new FileWriter("./log/recommand_log.csv");
+			fw_time_log= new FileWriter("./log_time/recommand_log.csv");
 		}
 		BufferedWriter bw_log=new BufferedWriter(fw_log);
+		BufferedWriter bw_time_log= new BufferedWriter(fw_time_log);
 		//create the global variables based on the configuration file
 		new Global(config, configFrontEnd, is_trainning);
 		
@@ -245,8 +249,10 @@ public class Driver {
 					bw.append(Double.toString(evaluator.recall()));
 					bw.append(", ");
 					bw.append(Double.toString(evaluator.fmeasure()));
-					if(RecommandFlag)
+					if(RecommandFlag){
 						bw_log.write(totalSamples+","+evaluator.fmeasure()+"\n");
+						bw_time_log.write(totalTime+","+evaluator.fmeasure()+"\n");
+					}
 				}
 				iterNum++;
 				bw.append('\n');				//TODO of course delete the two
@@ -261,6 +267,7 @@ public class Driver {
 			}
 			bw.close();
 			bw_log.close();
+			bw_time_log.close();
 	}
 	public static void WriteModel(ArrayList<DTUserModel> models){
 		FileOutputStream fos;

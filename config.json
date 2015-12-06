@@ -43,21 +43,21 @@
 	"targetSamplesFileName":"targetSamples.arff"
 },
 "query_0":{
-    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 622.5 and rowc <= 662.5 and colc >= 992 and colc <= 1020);",
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 622.5 and rowc < 652.5 and colc >= 992 and colc <= 1020);",
     "targetSamplesFileName":"targetSamples.arff"
 },
 
 "query_1":{
-    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 622.5 and rowc <= 662.5 and colc >= 1000 and colc <= 1053);",
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 622.5 and rowc <= 652.5 and colc >= 1000 and colc <= 1053);",
    	"targetSamplesFileName":"targetSamples.arff"
 },
 "query_2":{
-    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 30 and rowc <= 215 and colc >= 581 and colc <= 600);",
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 30 and rowc <= 214 and colc >= 581 and colc <= 600);",
    	"targetSamplesFileName":"targetSamples.arff"
 },
 
 "query_3":{
-    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 30 and rowc <=215 and colc >= 590 and colc <= 612);",
+    "targetQuery": "select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 30 and rowc <=214 and colc >= 590 and colc <= 612);",
    	"targetSamplesFileName":"targetSamples.arff"
 },
 
