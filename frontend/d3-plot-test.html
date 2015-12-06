@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test page</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet">
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.0.min.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+  <script src="js/heatmap.js"></script>
+
+  <style>
+
+
+  div#plots {
+    margin-bottom: 15px;
+  }
+
+  div#scatterplot, div#heatchart {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  div#scatterContainer, div#heatchartContainer {
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  circle {
+    fill: #09c;
+  }
+
+  select {
+    margin-left: 15px;
+  }
+
+  .enable-scroll {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y:scroll;
+  }
+
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-uppercase">
+        <h2 class="title-super">Data Explore</h2>
+        <h4>IDE project</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="pager">
+            <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Collapsible Group Item #1
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body enable-scroll">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Collapsible Group Item #2
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body enable-scroll">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  Collapsible Group Item #3
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body enable-scroll">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="row" id="delete-row">
+      <div class="col-md-6">
+        <h4><span class="label label-primary">RA</span></h4>
+        <p>This is description for ra.</p>
+        <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+          Loading state
+        </button>
+        <button type="button" class="btn btn-danger" id="delete-btn">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+
+        <script>
+        $(function(){
+          // Do interesting things
+          //var value = "JSON value will be here";
+          // var value = [
+          // {
+          //   "attr_name": "ra",
+          //   "min_value": 2.3,
+          //   "max_value": 13.9
+          // },
+          // {
+          //   "attr_name": "dec",
+          //   "min_value": 1.4,
+          //   "max_value": 21.6
+          // },
+          // {
+          //   "attr_name": "cx",
+          //   "min_value": 8.2,
+          //   "max_value": 41.7
+          // }];
+
+          var value = [];
+          value.push({
+                 "attr_name": "ra",
+                 "min_value": 2.3,
+                 "max_value": 13.9
+               });
+
+               value.push({
+                 "attr_name": "dec",
+                 "min_value": 1.4,
+                 "max_value": 21.6
+               });
+
+          $('#attr_data_input').val(JSON.stringify(value));
+        });
+        </script>
+
+        <div class="row">
+          <div class="col-md-12">
+            <form action="space_explore.php" method="post">
+              <input type="hidden" name="attr_data" id="attr_data_input">
+              <button type="submit" name="attr_confirm" class="btn btn-primary button-align">Submit</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <div id="chartContainer1" class="col-md-6">
+
+      </div>
+    </div>
+
+
+    <script>
+    $('#delete-btn').on('click', function(event){
+
+      $('#delete-row').remove();
+
+    });
+
+    $('#myButton').on('click', function (event) {
+      //var $btn = $(this).button('loading');
+      //$('#myButton').button('loading');
+      // $(this).button('loading');
+      // // business logic...
+      // setTimeout(function () {
+      //
+      //   alert('VIDEO HAS STOPPED');
+      //   //$btn.button('reset');
+      //   $('#myButton').button('reset');
+      //   //this.button('reset');
+      // }, 5000);
+
+      $.post( "connect.php" );
+
+    });
+
+    </script>
+
+    <div class="row">
+      <div class="col-md-12">
+      <select onchange="onNumPointsChange(event);">
+        <option value="500">500</option>
+        <option value="1500" selected="true">1500</option>
+        <option value="5000">5000</option>
+        <option value="15000">15,000</option>
+        <option value="25000">25,000</option>
+        <option value="50000">50,000</option>
+      </select> points
+
+      <button onclick="onRandomizeClick();">Randomize!</button>
+
+      <div id="plots">
+        <div id="scatterContainer">
+          <div id="scatterplot"></div>
+
+          <input type="checkbox" checked="true" onchange="onShowScatterplotChange(event);">show scatterplot</input>
+        </div>
+
+        <div id="heatchartContainer">
+          <div id="heatchart"></div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -240,16 +240,17 @@ public class Protocol {
 	}
 
 	private Object[] fixSample(Tuple t) throws SQLException {
-		int size = 1+Global.visualAttributes.size()+t.getAttrValues().length;
+		int size = 2+Global.visualAttributes.size()+t.getAttrValues().length;
 		Object[] a = new Object[size];
 		a[0] = t.getKey();
+		a[1] = t.getStage();
 		Object[] b = visualAttributes(a[0]);
 		for(int i=0; i<b.length; i++){
-			a[i+1] = b[i];
+			a[i+2] = b[i];
 		}
 		//a[1] = b[0]; a[2] = b[1];
 		for(int j=0; j<t.getAttrValues().length; j++)
-			a[3+j] = t.getAttrValues()[j];
+			a[2+b.length+j] = t.getAttrValues()[j];
 		return a;
 	}
 

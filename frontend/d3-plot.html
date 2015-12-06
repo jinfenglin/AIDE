@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test page</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.0.min.js"></script>
+  	
+  <style>
+
+  body {
+    font: 10px sans-serif;
+  }
+
+  .bar {
+    fill: steelblue;
+  }
+
+  .bin2 {
+    fill: steelblue;
+    shape-rendering: crispEdges;
+  }
+
+  
+  .axis text {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-uppercase">
+        <h2 class="title-super">Data Explore</h2>
+        <h4>IDE project</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>ra</p>
+        <p>This is description for ra.</p>
+      </div>
+      <div id="chartContainer1" class="col-md-6">
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>dec</p>
+        <p>This is description for dec.</p>
+      </div>
+      <div id="chartContainer2" class="col-md-6">
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <script src="js/histogram.js"></script>
+    
+
+
+</body>
+
+</html>

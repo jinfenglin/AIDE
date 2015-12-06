@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test page</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-uppercase">
+        <h2 class="title-super">Data Explore</h2>
+        <h4>IDE project</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="title-connection">Connect To a Database</h4>
+        <form class="form-horizontal" role="form">
+
+          <div class="form-group">
+            <label for="Username" class="col-md-2 control-label">User ID</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="Username" placeholder="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-md-2 control-label">Password</label>
+            <div class="col-md-4">
+              <input type="password" class="form-control" id="inputPassword" placeholder="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputDB" class="col-md-2 control-label">Database</label>
+            <div class="col-md-4">
+              <select class="form-control" id="inputDB">
+                <option>aide</option>
+                <option>testdb</option>
+                <option>imdb</option>
+                <option>postgres</option>
+                <option>project</option>
+                <option>housing</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+              <button type="submit" class="btn btn-default">Sign in</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h4 class="title-connection">Table Selection</h4>
+        <form class="form-horizontal" role="form">
+
+          <div class="form-group">
+            <label for="inputTable" class="col-md-2 control-label">Table</label>
+            <div class="col-md-4">
+              <select class="form-control" id="inputTable">
+                <option>director</option>
+                <option>actor</option>
+                <option>casts</option>
+                <option>movies</option>
+                <option>movie_director</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+              <button type="submit" class="btn btn-default">Select</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table" align="center">
+          <tr>
+            <form name="form1" method="post" action="checklogin.php">
+              <td>
+                <table class="table">
+                  <tr>
+                    <td colspan="3"><strong>Member Login </strong></td>
+                  </tr>
+                  <tr>
+                    <td>Username</td>
+                    <td width="6">:</td>
+                    <td width="294"><input name="myusername" type="text" id="myusername"></td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td>:</td>
+                    <td><input name="mypassword" type="text" id="mypassword"></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" name="Submit" value="Login"></td>
+                  </tr>
+                </table>
+              </td>
+            </form>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="title-connection">Attribute Selection</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-11">
+
+        <!-- <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            ob
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            ra
+          </label>
+        </div> -->
+        <!-- <div class="checkbox col-md-2">
+          <label>
+            <input type="checkbox" value="">
+            dec
+          </label>
+        </div>
+        <div class="checkbox col-md-2">
+          <label>
+            <input type="checkbox" value="">
+            cx
+          </label>
+        </div>
+        <div class="checkbox col-md-2">
+          <label>
+            <input type="checkbox" value="">
+            cy
+          </label>
+        </div> -->
+
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+        <label class="checkbox-inline no_indent col-md-3">
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Aaaaaaaaaa
+        </label>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-default button-align">Reset</button>
+        <button type="submit" class="btn btn-default button-align btn-primary">Confirm</button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

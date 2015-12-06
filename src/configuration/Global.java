@@ -441,7 +441,7 @@ public class Global {
 	public Global(JSONObject config, JSONObject configFrontEnd) throws JSONException {
 
 		//front end config file
-		
+		this(config,configFrontEnd,false);
 	}
 
 	private static void createFolder(String folderName, boolean f) {		

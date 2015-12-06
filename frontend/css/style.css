@@ -1,0 +1,131 @@
+body {
+  font-family: 'Lato', sans-serif;
+  color: #747704;
+
+}
+
+
+.widthBar {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+
+.depthBar {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.circles { opacity: .75; }
+
+.house_circles { opacity: 1.0; }
+
+.guide line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  opacity: 0;
+}
+
+
+.title-super {
+  font-size: 60px;
+  font-weight:  500;
+}
+
+.title-logo {
+  margin-top: 20px;
+
+}
+
+.title-connection {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.title-attribute {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.large-top-margin {
+  margin-top: 50px;
+}
+.large-bottom-margin {
+  margin-bottom: 50px;
+}
+.medium-top-margin {
+  margin-top: 30px;
+}
+.medium-bottom-margin {
+  margin-bottom: 30px;
+}
+.small-top-margin {
+  margin-top: 10px;
+}
+.small-bottom-margin {
+  margin-bottom: 10px;
+}
+.small-left-margin {
+  margin-left: 10px;
+}
+.small-right-margin {
+  margin-right: 10px;
+}
+
+.enable-scroll {
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.not-show {
+  display: none;
+}
+.text-transparent {
+  opacity: 0;
+}
+
+.button-align {
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-bottom: 20px;
+}
+
+.item-space {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.checkbox-inline.no_indent,
+.checkbox-inline.no_indent+.checkbox-inline.no_indent {
+  margin-left: 0;
+  /*margin-right: 10px;*/
+}
+
+.bottom-align {
+  position: relative;
+  bottom: -50px;
+  right: -10px;
+}
+
+.small-southeast-align {
+  position: relative;
+  top: 10px;
+  left: 10px;
+}

@@ -126,6 +126,9 @@ public class LinearExploration implements MiddleWare, Cloneable{
 			if(!predictedQuery.equals("") && !predictedQuery.endsWith("WHERE ") && !predictedQuery.endsWith("WHERE ")){ //if there is a tree built
 				try {
 					exploit.addAll(boundExp.exploitBoundaries());
+					for (Tuple t: exploit) {
+						t.setStage(1);
+					}
 				} catch (SQLException | IOException | InterruptedException e) {
 					e.printStackTrace();
 				} 
@@ -169,6 +172,9 @@ public class LinearExploration implements MiddleWare, Cloneable{
 					if(!explore.contains(temp.get(i)))
 						explore.add(temp.get(i));
 				}
+				for (Tuple t: explore) {
+					t.setStage(2);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -190,6 +196,9 @@ public class LinearExploration implements MiddleWare, Cloneable{
 				list = h.sampling();
 			} catch (Exception e) {
 				System.out.println(e.toString());
+			}
+			for (Tuple t: list) {
+				t.setStage(3);
 			}
 			samples.addAll(list);
 			if(Global.SCENARIO == 2)
@@ -232,6 +241,9 @@ public class LinearExploration implements MiddleWare, Cloneable{
 					e.printStackTrace();
 				}
 
+			}
+			for (Tuple t: nearestToMiss) {
+				t.setStage(4);
 			}
 			System.out.println("Returned..."+nearestToMiss.size()+" samples..");
 			samples.addAll(nearestToMiss);

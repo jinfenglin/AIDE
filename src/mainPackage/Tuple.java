@@ -3,6 +3,15 @@ package mainPackage;
 public class Tuple{
 	private Object[] attrValues;
 	private Object key;
+	private int stage;
+
+	public int getStage() {
+		return stage;
+	}
+
+	public void setStage(int stage) {
+		this.stage = stage;
+	}
 
 	public Tuple(Object key, Object[] values){
 		this.setKey(key);

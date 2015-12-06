@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test page</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.0.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-uppercase">
+        <h2 class="title-super">Data Explore</h2>
+        <h4>IDE project</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>ra</p>
+        <p>This is description for ra.</p>
+      </div>
+      <div id="chartContainer1" class="col-md-6">
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>dec</p>
+        <p>This is description for dec.</p>
+      </div>
+      <div id="chartContainer2" class="col-md-6">
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <script type="text/javascript">
+  var svg = dimple.newSvg("#chartContainer1", 590, 400);
+  var data = [
+  { "Word":"Hello", "color":"yellow","Awesomeness":2000 },
+  { "Word":"World", "color":"blue","Awesomeness":3000 },
+  { "Word":"Together", "color":"yellow","Awesomeness":3500 }
+  ];
+  var chart = new dimple.chart(svg, data);
+  chart.addCategoryAxis("x", ["Word","color"]);
+  chart.addMeasureAxis("y", "Awesomeness");
+  chart.addSeries(null, dimple.plot.bar);
+  chart.draw();
+  </script>
+
+  <script type="text/javascript">
+  var svg = dimple.newSvg("#chartContainer2", 590, 400);
+  var data = [
+  { "Index":"1","Word":"Hello", "Length":1.3, "Awesomeness":20 },
+  { "Index":"2","Word":"Hello", "Length":2.5, "Awesomeness":30 },
+  { "Index":"3","Word":"Hello", "Length":1.1, "Awesomeness":25 },
+  { "Index":"1","Word":"Hello", "Length":1.2, "Awesomeness":25 }
+  ];
+  var chart = new dimple.chart(svg, data);
+  //chart.addCategoryAxis("x", "Index");
+  //chart.addPctAxis("x", "Length", "Index");
+  //chart.addPctAxis("x", "Length");
+  //chart.addAxis("x", ["Index","Word"], "Length");
+  //chart.addAxis("x", "Index", "Length");
+  chart.addMeasureAxis("y", "Awesomeness");
+  chart.addMeasureAxis("x", "Length");
+  //chart.addLogAxis("y", "Awesomeness", 10);
+  chart.addSeries("Length", dimple.plot.bar);
+  chart.draw();
+  </script>
+
+
+</body>
+
+</html>

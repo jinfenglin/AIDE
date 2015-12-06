@@ -2,13 +2,14 @@
 "db":{
 		"host":"localhost",
 		"port":5432,
-		"user":"jinfenglin",
-		"pwd":"a1992",
-		"db":"stardb"
+		"user":"user",
+		"pwd":"password",
+		"db":"aide"
 },
 "demo":{
 		"scenario":"Scenario 2",
-		"target_query":"select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053) or (rowc >= 215 and rowc <= 432 and colc >= 581 and colc <= 612);"
+		"recommendation":"Userbased",
+		"target_query":"select rowc, colc from sdss_sampledb_point4_percent where (rowc >= 662.5 and rowc <= 702.5 and colc >= 992 and colc <= 1053);"
 },
 "query":{
         "attributes":["rowc", "colc"],
@@ -17,6 +18,6 @@
 		"lowerBounds":[310, 199],
 	    "upperBounds":[1146, 756],
 	    "visualAttributes":["w", "h"],
-	    "key":"id"
+	    "key":"objid"
 }
 }

@@ -1,0 +1,35 @@
+
+
+php file relationship:
+
+connect.php
+  ->  checklogin.php
+         ->  error (connect.php)
+         ->  error (error_page.php)
+         ->  attribute_select.php
+              ->  error (connect.php)
+              ->  error (error_page.php)
+              ->  histogram1.php
+                    ->  error (connect.php)
+                    ->  error (empty_attribute.php)
+                    ->  width_histogram.php
+                    ->  width_histogram_range.php
+                    ->  depth_histogram.php
+                    ->  depth_histogram_range.php
+                    ->  space_explore.php
+
+
+css:
+
+google fonts
+bootstrap.min.css
+style.css
+
+js:
+
+jquery.min.js
+bootstrap.min.js
+d3
+dimple
+histogram_draw.js
+collect_attribute.js
