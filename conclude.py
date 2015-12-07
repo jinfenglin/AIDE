@@ -24,7 +24,7 @@ def average(array,count):
     return [float(element)/count for element in array]
 
 if __name__=="__main__":
-    case="./results_time/case13/"
+    case="./results/positive_only_case9/"
     dirs=os.listdir(case)
     hybird_sum=[0]*10
     h_count=0
@@ -34,6 +34,7 @@ if __name__=="__main__":
     n_count=0
 
     for dir in dirs:
+        print dir
         if not os.path.isdir(case+dir):
             continue
         files=os.listdir(case+dir)
@@ -56,13 +57,13 @@ if __name__=="__main__":
                     user_sum=addArray(user_sum,res)
                     u_count+=1
       
-    print 'hybird:'
+    print 'hybird:',h_count
     for it in average(hybird_sum,h_count):
         print it
-    print 'userbased:'
+    print 'userbased:',u_count
     for it in average(user_sum,u_count):
         print it
-    print 'normal:'
+    print 'normal:',n_count
     for it in average(normal_sum,n_count):
         print it
                

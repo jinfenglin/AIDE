@@ -11,5 +11,5 @@ if __name__=='__main__':
                         fout.write(line)
                     else:
                         rand=random.randint(1, 100)
-                        if rand>99:
+                        if rand>100:
                             fout.write(line)
