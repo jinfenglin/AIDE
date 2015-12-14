@@ -52,6 +52,7 @@ public class Driver {
 		JSONObject demo = configFrontEnd.getJSONObject("demo"); //contains scenario and target query
 		JSONObject q = configFrontEnd.getJSONObject("query");
 
+		if (configFileName.equals("")) {
 		String sc = demo.getString("scenario");
 		if(sc.contains("1")){
 			configFileName = "config.json";
@@ -75,7 +76,7 @@ public class Driver {
 			}else{
 				configFileName = "configScenario4query3.json";
 			}
-			
+		}
 		}
 		
 		BufferedReader br = new BufferedReader(new FileReader(configFileName));

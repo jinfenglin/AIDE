@@ -22,6 +22,8 @@ var model_learned = false;
 var truth_query_shape = null;
 var truth_query_data = [];
 
+var previous_user_data = [];
+
 //grid_points is an array of objects, each object contains data_value(an array) and label			
 var grid_points = [];
 
@@ -418,7 +420,7 @@ function change_visualization_space(svg, new_x_index, new_y_index){
 	
 };
 
-function plot_true_query_shape(svg, true_query_data, shape_str, x_range, y_range){
+function plot_true_query_shape(svg, true_query_data, shape_str, target , x_range, y_range){
 	//svg: the svg to plot true query shape
 	//true_query_data is an array
 	//	for rectanges:  [{"rowc": [lowB, upB], "colc": [lowB, upB]}, {}]
@@ -460,8 +462,8 @@ function plot_true_query_shape(svg, true_query_data, shape_str, x_range, y_range
 				width: x(rectange_width + x_minvalue),
 				height: y(y_maxvalue - rectange_height)				
 			})
-			.style("fill", "White")
-			.attr("stroke", "Green")
+			.style("fill", "none")
+			.attr("stroke", target ? "Green" : "Blue")
 			.attr("stroke-width", 2);
 			
 			
@@ -476,8 +478,8 @@ function plot_true_query_shape(svg, true_query_data, shape_str, x_range, y_range
 				rx: x(true_query_data[i][x_name][1] + x_minvalue),
 				ry: y(y_maxvalue - true_query_data[i][y_name][1])
 			})
-			.style("fill", "White")
-			.attr("stroke", "Green")
+			.style("fill", "none")
+			.attr("stroke", target ? "Green" : "Blue")
 			.attr("stroke-width", 2);
 			
 		}
@@ -531,7 +533,7 @@ function plot_more_samples(data, svg, x_range, y_range){
   	  yvalue: function(d) { return d.y_value; }  
     })
 	.attr("stroke-width", 0)
-    .style("fill", function (d) { return d.stage_id == STAGE.HISTOGTAM ? "Blue" : "Gray"});
+    .style("fill", function (d) { return d.stage_id == STAGE.RECOMMEND ? "Blue" : "Gray"});
   
   	
     circles
@@ -631,7 +633,7 @@ function scatter_plot(data, svg, x_range, y_range){
 	  yvalue: function(d) { return d.y_value; }  
   })
   .attr("stroke-width", 0)
-  .style("fill", "Gray");
+  .style("fill", function (d) { return d.stage_id == STAGE.RECOMMEND ? "Blue" : "Gray"});
   //.style("fill", "DeepSkyBlue");
 
   circles
@@ -854,8 +856,12 @@ var change_exploration_interface = function(){
 	//plot the true query shape
 	if(truth_query_shape != null && truth_query_data.length > 0){
 		
-		plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, {attr_name: all_attr_info[x_index_to_plot].attr_name, min_value: +all_attr_info[x_index_to_plot].min_value, max_value: +all_attr_info[x_index_to_plot].max_value}, {attr_name: all_attr_info[y_index_to_plot].attr_name, min_value: +all_attr_info[y_index_to_plot].min_value, max_value: +all_attr_info[y_index_to_plot].max_value});
+		plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, true, {attr_name: all_attr_info[x_index_to_plot].attr_name, min_value: +all_attr_info[x_index_to_plot].min_value, max_value: +all_attr_info[x_index_to_plot].max_value}, {attr_name: all_attr_info[y_index_to_plot].attr_name, min_value: +all_attr_info[y_index_to_plot].min_value, max_value: +all_attr_info[y_index_to_plot].max_value});
 
+
+        if (truth_query_shape != null && previous_user_data.length > 0) {
+				plot_true_query_shape(d3.select('#chart svg'), previous_user_data, truth_query_shape, false, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
+			}
 	}
   	
 	if(model_learned === true && all_attr_info.length <= 2){
@@ -884,9 +890,14 @@ var change_exploration_interface = function(){
 		//plot the true query shape
 		if(truth_query_shape != null && truth_query_data.length > 0){
 			
-			plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, {attr_name: all_attr_info[x_index_to_plot].attr_name, min_value: +all_attr_info[x_index_to_plot].min_value, max_value: +all_attr_info[x_index_to_plot].max_value}, {attr_name: all_attr_info[y_index_to_plot].attr_name, min_value: +all_attr_info[y_index_to_plot].min_value, max_value: +all_attr_info[y_index_to_plot].max_value});
+			plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, true, {attr_name: all_attr_info[x_index_to_plot].attr_name, min_value: +all_attr_info[x_index_to_plot].min_value, max_value: +all_attr_info[x_index_to_plot].max_value}, {attr_name: all_attr_info[y_index_to_plot].attr_name, min_value: +all_attr_info[y_index_to_plot].min_value, max_value: +all_attr_info[y_index_to_plot].max_value});
 	
 		}
+		
+		if (truth_query_shape != null && previous_user_data.length > 0) {
+				plot_true_query_shape(d3.select('#chart svg'), previous_user_data, truth_query_shape, false,  {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
+			}
+		
 		
 	}
 	
@@ -1371,8 +1382,12 @@ var scatterplot_init = function(){
 			
 				//truth_query_data is global variable
 				truth_query_data = data.truth;
-				plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
+				plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, true, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
 			
+			}
+			if (data.previous != undefined) {
+				previous_user_data = data.previous;
+				plot_true_query_shape(d3.select('#chart svg'), previous_user_data, truth_query_shape,false, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
 			}
 			
 			//record grid points value
@@ -1571,9 +1586,14 @@ var scatterplot_init = function(){
 				//plot the true query shape
 				if(truth_query_shape != null && truth_query_data.length > 0){
 					
-					plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
+					plot_true_query_shape(d3.select('#chart svg'), truth_query_data, truth_query_shape, true,{attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
 			
 				}
+				
+				if (truth_query_shape != null && previous_user_data.length > 0) {
+				plot_true_query_shape(d3.select('#chart svg'), previous_user_data, truth_query_shape, false, {attr_name: all_attr_info[attr_x_index_to_plot].attr_name, min_value: +all_attr_info[attr_x_index_to_plot].min_value, max_value: +all_attr_info[attr_x_index_to_plot].max_value}, {attr_name: all_attr_info[attr_y_index_to_plot].attr_name, min_value: +all_attr_info[attr_y_index_to_plot].min_value, max_value: +all_attr_info[attr_y_index_to_plot].max_value});
+			}
+			
 			
 				
 			}

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -235,6 +236,11 @@ public class Protocol {
 		if(Global.SCENARIO==4){
 			json.put("truth", getRanges(Global.TARGET_QUERY));
 			json.put("truth_shape", "rectangle");
+			JSONArray previous=new JSONArray();
+			for (String query: Global.PREVIOUS_QUERIES) {
+				previous=getRanges(query,previous);
+			}
+			json.put("previous", previous);
 		}
 		return json;
 	}
@@ -398,16 +404,21 @@ public class Protocol {
 	}
 	
 	public JSONArray getRanges(String query) throws JSONException{ 
+		
+		return getRanges(query,null);
+	}
+	
+	public JSONArray getRanges(String query, JSONArray previous) throws JSONException{ 
 		System.out.println("Started Ranges");
 		if(query.equals("") || query.equals("null") || query.equals(null) || query.equals("Empty") || query.endsWith("WHERE ") || query.endsWith("WHERE"))return null;
 		//JSONObject obj = new JSONObject();
-		JSONArray toReturn = new JSONArray();
+		JSONArray toReturn = previous ==null ? new JSONArray() : previous;
 		Scanner s = new Scanner(query);
-		s.useDelimiter("WHERE");
+		s.useDelimiter(Pattern.compile("WHERE", Pattern.CASE_INSENSITIVE));
 		s.next();//skip first part
 		String wc = s.next();
 		Scanner s1 = new Scanner(wc);
-		s1.useDelimiter("OR");
+		s1.useDelimiter(Pattern.compile("OR", Pattern.CASE_INSENSITIVE));
 		while(s1.hasNext()){ //for each different area
 			String area = s1.next();
 			JSONObject attr = new JSONObject();

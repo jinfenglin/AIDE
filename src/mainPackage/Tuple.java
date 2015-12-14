@@ -1,6 +1,8 @@
 package mainPackage;
 
-public class Tuple{
+import java.util.Comparator;
+
+public class Tuple {
 	private Object[] attrValues;
 	private Object key;
 	private int stage;
@@ -89,4 +91,5 @@ public class Tuple{
 	public void setKey(Object key) {
 		this.key = key;
 	}
+
 }

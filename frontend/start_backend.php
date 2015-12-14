@@ -31,7 +31,7 @@ if($_SESSION["scenario"] == "Scenario 5" || $_SESSION["scenario"] == "Scenario 6
 }
 else{
 	//start kiki's backend
-//	chdir('C:/Users/yun/workspace/Aide');
+//	chdir('./backend/kiki');
 	//exec('./run.bat >>output.txt 2>>output.txt &');
 }
 
@@ -132,6 +132,8 @@ $query["upperBounds"] = $upperbound;
 
 $demo = array();
 $demo["scenario"] = $scenario;
+
+$demo["recommendation"] = $_SESSION["recommendation"];
 
 if($_SESSION["scenario"] == "Scenario 4"){
     $demo["target_query"] = $_SESSION["target_query_selected"];

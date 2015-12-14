@@ -151,7 +151,7 @@ if (!$dbconn) {
               if($_SESSION["scenario"] == "Scenario 4"){
               echo "<div class='col-md-12 medium-top-margin medium-bottom-margin'>" .
 				  "<div class='form-group'>".
-                  "<label for='' class='col-md-1 control-label'>Query :</label>".
+                  "<label for='' class='col-md-2 control-label'>Query :</label>".
                       "<div class='col-md-3'>".
                         "<select name = 'target_query' class='form-control' id='target_query_id' onchange='changeQuery(this)'>".
                              "<option value='query 1'>query 1\n</option>;".
@@ -166,6 +166,19 @@ if (!$dbconn) {
 			  
 			  
               ?>
+              
+            <div class='col-md-12 medium-top-margin medium-bottom-margin'>
+                <div class="form-group">
+                  <label for="recommendMethod" class="col-md-2 control-label">Recommendation: </label>
+                  <div class="col-md-3">
+                    <select name="recommendation" class="form-control" id="recommendMethod" onchange="getMyScenario(this)">
+                      <option value="disabled">No Recommendation</option>
+					            <option value="userbased">User Based Recommendation</option>
+                      <option value="hybrid">Model Based Recommendation</option>            
+                    </select>
+                  </div>
+                </div>
+            </div>
 			  
 			<div class="col-md-12">
 				  

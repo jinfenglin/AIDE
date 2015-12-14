@@ -17,6 +17,7 @@ if(isset($_POST['confirm'])){
     }
     
     $_SESSION["target_query_selected"] = $_POST["target_query"];
+    $_SESSION["recommendation"] = $_POST['recommendation'];
     //$conn_input = "host=dbcluster.cs.umass.edu port=54320 dbname={$_SESSION["dbname"]} user={$_SESSION["username"]} password={$_SESSION["password"]}";
     //echo $conn_input;
     //echo "<br>";

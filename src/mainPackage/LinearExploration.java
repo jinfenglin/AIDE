@@ -14,6 +14,9 @@ import boundaryExploitation.BoundaryExploitation;
 import misclassifiedExploitation.ClusterExploitation;
 import misclassifiedExploitation.ExploitEachMisclassified;
 import misclassifiedExploitation.MisclassifiedExploitation;
+import recommandation.Hybird;
+import recommandation.Recommander;
+import recommandation.Userbased;
 import configuration.Global;
 
 public class LinearExploration implements MiddleWare, Cloneable{
@@ -21,9 +24,12 @@ public class LinearExploration implements MiddleWare, Cloneable{
 	MisclassifiedExploitation [] misExpArr = new MisclassifiedExploitation [2];
 	MisclassifiedExploitation misclExp;
 	BoundaryExploitation boundExp;
+	Recommander recommand = null;
+	boolean RecommendFlag;
 	ObjectDiscovery [] objDisArr = new ObjectDiscovery [3];
 	ObjectDiscovery objectDiscovery ;
 	ArrayList<Tuple> allExploreTuples;
+	ArrayList<Tuple> history;
 	Label label;
 	ArffFile trainingFile;
 	ArffFile shadowTrainingFile;
@@ -64,6 +70,15 @@ public class LinearExploration implements MiddleWare, Cloneable{
 		}else if(Global.MISCLASSIFIED_TECHNIQUE == 1){
 			misclExp = misExpArr[1];
 		}
+		
+		
+		if(Global.RECOMMENDATION==Global.USERBASED){
+			recommand=new Userbased();
+		}else if(Global.RECOMMENDATION==Global.HYBRID){
+			recommand= new Hybird();
+		}
+		
+		history = new ArrayList<Tuple>();
 
 		allExploreTuples = new ArrayList<Tuple>();
 
@@ -248,6 +263,26 @@ public class LinearExploration implements MiddleWare, Cloneable{
 			System.out.println("Returned..."+nearestToMiss.size()+" samples..");
 			samples.addAll(nearestToMiss);
 		}
+		
+		if(recommand != null  && RecommendFlag == true){
+			history.addAll(samples);
+			history= checkSamples(samples,history);
+			recommand.UpdateHistory(history);
+			System.out.println("Recommandation Items:");
+			ArrayList<Tuple> recommandItem=recommand.recommend(3);
+			for (Tuple t: recommandItem) {
+				t.setStage(5);
+				System.out.println(t.getAttrValues() + "; ");
+			}
+			samples.addAll(recommandItem);
+			history.addAll(recommandItem);
+			}
+		
+		ArrayList<Integer> labels = label.getLabels(samples);
+		if(RecommendFlag==false)
+			RecommendFlag=PositiveLabelInArray(labels);
+
+		
 		return samples;
 	}
 
@@ -265,4 +300,22 @@ public class LinearExploration implements MiddleWare, Cloneable{
 		}  
 		return obj;  
 	}  
+	
+	private ArrayList<Tuple> checkSamples(ArrayList<Tuple> allsamples,ArrayList<Tuple> samples) {
+		ArrayList<Tuple> newSamples = new ArrayList<Tuple>();
+		for(int i=0; i<samples.size(); i++){
+			if(!allsamples.contains(samples.get(i)) && !newSamples.contains(samples.get(i))){
+				newSamples.add(samples.get(i));
+			}
+		}
+		return newSamples;
+	}
+	
+	public static boolean PositiveLabelInArray(ArrayList<Integer> list){
+		for(int label:list){
+			if(label==1)
+				return true;
+		}
+		return false;
+	}
 }

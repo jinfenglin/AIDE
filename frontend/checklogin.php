@@ -9,6 +9,7 @@ if(!empty($_POST['myhost']) && !empty($_POST['myport']) && !empty($_POST['myuser
   $_SESSION["password"] = $_POST['mypassword'];
   $_SESSION["dbname"]   = $_POST['mydb'];
   $_SESSION["scenario"] = $_POST['myscenario'];
+  
 }
 elseif(!isset($_SESSION["hostname"], $_SESSION["portnum"], $_SESSION["username"], $_SESSION["password"], $_SESSION["dbname"], $_SESSION["scenario"])){
   header("location:connect.php");

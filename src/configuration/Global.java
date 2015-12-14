@@ -52,6 +52,7 @@ public class Global {
 	public static String targetQuery;
 	public static boolean ADAPTIVE_BOUNDARY;
 
+	public static String[] PREVIOUS_QUERIES;
 	//user can skip certain phase
 	public static boolean SKIP_OBJECTDISCOVERY;
 	public static boolean SKIP_MISCLASSIFIEDEXPLOITATION;
@@ -85,6 +86,12 @@ public class Global {
 	
 	public static int QUERYNUMBER = 1; // KEMI
 	public static JSONObject QUERIES [] = null; // kemi
+	
+    public static int RECOMMENDATION;
+	
+	public static final int DISABLED = 0;
+	public static final int USERBASED = 1;
+	public static final int HYBRID = 2;
 	/**
 	 * @param config a JSONObject that represents the JSON file that contains
 	 *               all the info for algorithm/query etc.
@@ -96,6 +103,18 @@ public class Global {
 		JSONObject queryFE = configFrontEnd.getJSONObject("query");
 		JSONObject demo = configFrontEnd.getJSONObject("demo"); //contains scenario and target query
 	
+		String rec = demo.getString("recommendation").trim().toLowerCase();
+		switch (rec) {
+		case "userbased":
+			RECOMMENDATION=1;
+			break;
+		case "hybrid":
+			RECOMMENDATION=2;
+			break;
+		default:
+			RECOMMENDATION=0;
+		}
+		
 		String sc = demo.getString("scenario");
 		if(sc.contains("1")){
 			SCENARIO = 1;
@@ -124,7 +143,7 @@ public class Global {
 		}
 		
 		/* kemi */
-		targetQuery = QUERIES[the_idx].getString("targetQuery");
+		targetQuery = Global.PREVIOUS_QUERIES[the_idx];
 		TARGET_QUERY = targetQuery;
 		/* kemi */
 
@@ -263,19 +282,31 @@ public class Global {
 	}
 	
 	public Global(JSONObject config, JSONObject configFrontEnd, boolean is_trainning) throws JSONException {
-		if (is_trainning) {
-			JSONObject algorithm = config.getJSONObject("algorithm");
-			QUERYNUMBER = algorithm.getInt("queryNumber");
-			
-			QUERIES = new JSONObject [QUERYNUMBER];
-			String standard_query_pre = new String("query_");
-			for (int idx=0; idx<QUERYNUMBER; idx++) {
-				QUERIES[idx] = config.getJSONObject(standard_query_pre + idx);
-			}
-		} else {
-			JSONObject queryFE = configFrontEnd.getJSONObject("query");
-			JSONObject demo = configFrontEnd.getJSONObject("demo"); //contains scenario and target query
+		JSONObject queryFE = configFrontEnd.getJSONObject("query");
+		JSONObject demo = configFrontEnd.getJSONObject("demo"); //contains scenario and target query
 
+		
+		
+		JSONArray previous_query=config.getJSONArray("previous_queries");
+		PREVIOUS_QUERIES=new String[previous_query.length()];
+		for (int i=0;i<previous_query.length();i++) {
+			PREVIOUS_QUERIES[i]=previous_query.getString(i);
+		}
+		if (!is_trainning) {
+			
+
+			String rec = demo.getString("recommendation").trim().toLowerCase();
+			switch (rec) {
+			case "userbased":
+				RECOMMENDATION=1;
+				break;
+			case "hybrid":
+				RECOMMENDATION=2;
+				break;
+			default:
+				RECOMMENDATION=0;
+			}
+			
 			String sc = demo.getString("scenario");
 			if(sc.contains("1")){
 				SCENARIO = 1;
@@ -292,7 +323,7 @@ public class Global {
 			}else if(sc.contains("4")){
 				targetQuery = demo.getString("target_query");
 				if(targetQuery.contains("1")){
-					targetQuery = "SELECT rowc, colc FROM sdss_random_sample WHERE (rowc >= 500 AND rowc <= 650 AND  colc >= 1100 AND colc <= 1400 )";
+					targetQuery = "SELECT rowc, colc FROM sdss_random_sample WHERE (rowc >= 612.5 and rowc <= 792.5 and colc >= 992 AND colc <= 1295 ) OR (rowc >= 120.5 and rowc <= 280 and colc >= 650 and colc <= 740 )";
 					//targetQuery = "SELECT rowc, colc FROM sdss_random_sample WHERE (rowc >= 120 AND rowc <= 200 AND  colc >= 340 AND colc <= 440 ) OR (rowc >= 1100 AND rowc <= 1200 AND  colc >= 1100 AND colc <= 1400 )";
 				}else if(targetQuery.contains("2")){
 					targetQuery = "SELECT ra, dec FROM sdss_random_sample WHERE  ( ra >= 70 and ra <= 100 and dec >= -9.6 AND dec <= 0.5 )";

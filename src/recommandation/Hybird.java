@@ -84,10 +84,11 @@ public class Hybird extends Recommander{
 	@Override
 	public double ScoreItem(String itemId) {
 		double score=0.0;
+		//double I2U=ItemUserAffinity(itemId);
 		for(String UserId:UserRecord.keySet()){
 			DTUserModel model= pastModels.get(UserId);
 			ArrayList<RecEntry> itemList=BuildItemListWithPastModel(UserId,model);
-			double weight=Similarity(currentUserHistory,itemList)+ItemUserAffinity(itemId);
+			double weight=Similarity(currentUserHistory,itemList);
 			//System.out.println("weight:"+weight);
 			Tuple tuple= getTuple(itemId);
 			String past_label=classify(tuple,model);
@@ -97,7 +98,7 @@ public class Hybird extends Recommander{
 				score-=weight;
 			}
 		}
-		return score;
+		return score;//+I2U;
 	}
 	public double CosinSimilairty(ArrayList<Double> vectorA,ArrayList<Double> vectorB){
 		double dotProduct = 0.0;
@@ -130,14 +131,16 @@ public class Hybird extends Recommander{
 	public double ItemUserAffinity(String itemId){//item's affinity with user by comapring with all history items of current user
 		Tuple tuple=getTuple(itemId);
 		double score=0;
+		int count=0;
 		for(RecEntry entry:currentUserHistory){
+			count++;
 			Tuple tmp= getTupleFromCurrentUser(entry.itemId);
 			if(entry.label=="1")
 				score+= ItemSimilarity(tuple,tmp);
 			else
 				score-= ItemSimilarity(tuple,tmp);
 		}
-		return score;
+		return score/count;
 	}
 	public double ItemSimilarity(Tuple item1,Tuple item2){
 		ArrayList<Double> al1= ToVector(item1.getAttrValues(),item2.getAttrValues());

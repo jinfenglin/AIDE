@@ -89,7 +89,7 @@ public class Driver {
 		}
 		BufferedWriter bw_log=new BufferedWriter(fw_log);
 		//create the global variables based on the configuration file
-		new Global(config, configFrontEnd, is_trainning);
+		new Global(config, configFrontEnd, true);
 		
 		File file = new File("./psfmag_i.csv");
 		if (!file.exists()) {
@@ -116,13 +116,14 @@ public class Driver {
 		// Kemi
 		
 		ArrayList<DTUserModel> ModelCollection=new ArrayList<DTUserModel>();
-		for (int the_idx=0; the_idx<Global.QUERYNUMBER; the_idx++) {
+		for (int the_idx=0; the_idx<Math.max(Global.PREVIOUS_QUERIES.length,1); the_idx++) {
 			if (is_trainning) {
 				Global.execute(config, configFrontEnd, the_idx);
 				//bw_pres.append("-----------New User-----------\n");
 				}
 			// Kemi
 			//linear exploration performs all the three phases of a linear exploration
+			Global.RECOMMENDATION=Global.DISABLED;
 			LinearExploration exploration = new LinearExploration();
 			Recommander recommand = null;
 			if(recommandOption.equals("Userbased")){
@@ -130,7 +131,8 @@ public class Driver {
 			}else if(recommandOption.equals("Hybird")){
 				recommand= new Hybird();
 			}
-			ArrayList<Tuple> history = new ArrayList<Tuple>();
+			exploration.recommand = recommand;
+
 
 			int totalSamples = 0;
 			UserModel model = null;
@@ -143,7 +145,6 @@ public class Driver {
 			
 			//============================================================== 
 			//while we still have samples to show to the user
-			boolean RecommandFlag=false;
 			while(totalSamples<Global.MAX_SAMPLES){
 				//use cmd controller to control the progress
 				if (Global.STEP_BY_STEP) {
@@ -182,16 +183,6 @@ public class Driver {
 				ArrayList<Tuple> samples = new ArrayList<Tuple>();
 				while(samples.size()==0){
 					samples = exploration.explore(model, 0); 
-					if(!recommandOption.equals("False")  && RecommandFlag == true){
-						history.addAll(samples);
-						history= checkSamples(history);
-						recommand.UpdateHistory(history);
-						System.out.println("Recommandation Items:");
-						ArrayList<Tuple> recommandItem=recommand.recommend(3);
-						PrintArray(recommandItem);
-						samples.addAll(recommandItem);
-						history.addAll(recommandItem);
-						}
 					samples=checkSamples(samples);
 				}
 				//if (samples.size() > 0)
@@ -210,8 +201,7 @@ public class Driver {
 				//get labels(relevant/non-relevant) from each of the samples you retrieved
 				//System.out.println("Going to get labels");
 				ArrayList<Integer> labels = lb.getLabels(samples);
-				if(RecommandFlag==false)
-					RecommandFlag=PositiveLabelInArray(labels);
+
 				//build the decision tree based on the labeled samples you have and get back the user model
 				//System.out.println("Going to classify and build the tree");
 				model = exploration.classify(samples, labels);
@@ -245,7 +235,7 @@ public class Driver {
 					bw.append(Double.toString(evaluator.recall()));
 					bw.append(", ");
 					bw.append(Double.toString(evaluator.fmeasure()));
-					if(RecommandFlag)
+					if(exploration.RecommendFlag)
 						bw_log.write(totalSamples+","+evaluator.fmeasure()+"\n");
 				}
 				iterNum++;

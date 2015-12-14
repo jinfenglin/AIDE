@@ -13,7 +13,7 @@
 },
 "query":{
         "attributes":["rowc", "colc"],
-        "tableName":"sdss_sampledb_point4_percent",
+        "tableName":"sdss_random_sample",
         "focusedExploration":false,
 		"lowerBounds":[310, 199],
 	    "upperBounds":[1146, 756],
